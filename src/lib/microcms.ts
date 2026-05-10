@@ -1,5 +1,11 @@
 import { createClient } from "microcms-js-sdk";
-import type { Article, Category, MicroCMSListResponse } from "@/types";
+import type {
+  Article,
+  Category,
+  Tag,
+  Area,
+  MicroCMSListResponse,
+} from "@/types";
 
 function getClient() {
   const serviceDomain = process.env.MICROCMS_SERVICE_DOMAIN;
@@ -16,34 +22,52 @@ const client = {
     getClient().get<T>(...args),
 };
 
-const PER_PAGE = 12;
+export const PER_PAGE = 12;
 
-// 記事一覧取得
+// ─── 記事 ────────────────────────────────────────────
+
 export const getArticles = async (queries?: {
   offset?: number;
   limit?: number;
   categoryId?: string;
+  areaId?: string;
+  tagId?: string;
   q?: string;
 }): Promise<MicroCMSListResponse<Article>> => {
+  const filters: string[] = [];
+  if (queries?.categoryId) filters.push(`category[equals]${queries.categoryId}`);
+  if (queries?.areaId) filters.push(`area[equals]${queries.areaId}`);
+  if (queries?.tagId) filters.push(`tags[contains]${queries.tagId}`);
+
   return client.getList<Article>({
     endpoint: "articles",
     queries: {
       limit: queries?.limit ?? PER_PAGE,
       offset: queries?.offset ?? 0,
-      filters: queries?.categoryId
-        ? `category[equals]${queries.categoryId}`
-        : undefined,
+      filters: filters.length > 0 ? filters.join("[and]") : undefined,
       q: queries?.q,
     },
   });
 };
 
-// 記事詳細取得（IDで）
-export const getArticleById = async (id: string): Promise<Article> => {
-  return client.get<Article>({ endpoint: "articles", contentId: id });
+// hero フラグが true の記事（ヒーローエリア用）
+export const getHeroArticles = async (): Promise<Article[]> => {
+  const res = await client.getList<Article>({
+    endpoint: "articles",
+    queries: { filters: "hero[equals]true", limit: 3 },
+  });
+  return res.contents;
 };
 
-// 記事詳細取得（slugで）
+// pickup 用（最新記事）
+export const getPickupArticles = async (limit = 3): Promise<Article[]> => {
+  const res = await client.getList<Article>({
+    endpoint: "articles",
+    queries: { limit },
+  });
+  return res.contents;
+};
+
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const res = await client.getList<Article>({
     endpoint: "articles",
@@ -53,17 +77,23 @@ export const getArticleBySlug = async (slug: string): Promise<Article> => {
   return res.contents[0];
 };
 
-// カテゴリ一覧取得
-export const getCategories = async (): Promise<
-  MicroCMSListResponse<Category>
-> => {
+export const getAllArticleSlugs = async (): Promise<string[]> => {
+  const res = await client.getList<Article>({
+    endpoint: "articles",
+    queries: { fields: "slug", limit: 1000 },
+  });
+  return res.contents.map((a) => a.slug).filter(Boolean);
+};
+
+// ─── カテゴリ ─────────────────────────────────────────
+
+export const getCategories = async (): Promise<MicroCMSListResponse<Category>> => {
   return client.getList<Category>({
     endpoint: "categories",
-    queries: { limit: 100 },
+    queries: { limit: 100, orders: "order" },
   });
 };
 
-// カテゴリ詳細取得
 export const getCategoryBySlug = async (slug: string): Promise<Category> => {
   const res = await client.getList<Category>({
     endpoint: "categories",
@@ -73,13 +103,20 @@ export const getCategoryBySlug = async (slug: string): Promise<Category> => {
   return res.contents[0];
 };
 
-// 全記事のslug一覧（静的生成用）
-export const getAllArticleSlugs = async (): Promise<string[]> => {
-  const res = await client.getList<Article>({
-    endpoint: "articles",
-    queries: { fields: "slug", limit: 1000 },
+// ─── タグ ─────────────────────────────────────────────
+
+export const getTags = async (): Promise<MicroCMSListResponse<Tag>> => {
+  return client.getList<Tag>({
+    endpoint: "tags",
+    queries: { limit: 200 },
   });
-  return res.contents.map((a) => a.slug);
 };
 
-export { PER_PAGE };
+// ─── エリア ───────────────────────────────────────────
+
+export const getAreas = async (): Promise<MicroCMSListResponse<Area>> => {
+  return client.getList<Area>({
+    endpoint: "areas",
+    queries: { limit: 100, orders: "order" },
+  });
+};

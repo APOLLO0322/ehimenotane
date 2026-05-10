@@ -1,37 +1,63 @@
+"use client";
+
 import Link from "next/link";
 
 export default function Footer() {
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
-    <footer className="border-t border-stone-200 bg-stone-50 mt-20">
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="text-center md:text-left">
-            <p className="text-lg font-bold text-emerald-700">エヒメノタネ</p>
-            <p className="text-xs text-stone-400 mt-1">
-              愛媛の魅力を、種のように届けるオウンドメディア
-            </p>
-          </div>
+    <footer className="bg-white border-t border-stone-100">
+      <div className="max-w-5xl mx-auto px-6 py-10 relative">
+        {/* TOPへもどる */}
+        <button
+          onClick={scrollToTop}
+          className="absolute right-6 top-8 flex flex-col items-center gap-1 text-[#8ab92d] hover:opacity-70 transition-opacity"
+          aria-label="トップへ戻る"
+        >
+          <span className="text-2xl leading-none">↑</span>
+          <span className="text-[10px] font-bold tracking-wide">
+            TOPへ
+            <br />
+            もどる
+          </span>
+        </button>
 
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-stone-500">
-            <Link href="/" className="hover:text-emerald-700 transition-colors">
-              トップ
-            </Link>
-            <Link
-              href="/about"
-              className="hover:text-emerald-700 transition-colors"
-            >
-              このサイトについて
-            </Link>
-            <Link
-              href="/privacy"
-              className="hover:text-emerald-700 transition-colors"
-            >
-              プライバシーポリシー
-            </Link>
-          </nav>
-        </div>
+        {/* ナビ1行目 */}
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-600 mb-3 pr-20">
+          <Link href="/" className="hover:text-[#8ab92d] transition-colors">
+            ホーム
+          </Link>
+          <Link href="/articles" className="hover:text-[#8ab92d] transition-colors">
+            記事一覧
+          </Link>
+          <Link href="/feature" className="hover:text-[#8ab92d] transition-colors">
+            特集記事
+          </Link>
+          <Link href="/about" className="hover:text-[#8ab92d] transition-colors">
+            エヒメノタネとは
+          </Link>
+          <Link href="/contact" className="hover:text-[#8ab92d] transition-colors">
+            掲載をご希望の方
+          </Link>
+        </nav>
 
-        <p className="mt-8 text-center text-xs text-stone-400">
+        {/* ナビ2行目 */}
+        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-600 mb-8 pr-20">
+          <Link href="/privacy" className="hover:text-[#8ab92d] transition-colors">
+            プライバシーポリシー
+          </Link>
+          <Link href="/terms" className="hover:text-[#8ab92d] transition-colors">
+            利用規約
+          </Link>
+          <Link href="/advertising" className="hover:text-[#8ab92d] transition-colors">
+            広告掲載
+          </Link>
+          <Link href="/inquiry" className="hover:text-[#8ab92d] transition-colors">
+            お問い合わせ
+          </Link>
+        </nav>
+
+        <p className="text-xs text-stone-400">
           © {new Date().getFullYear()} エヒメノタネ All rights reserved.
         </p>
       </div>

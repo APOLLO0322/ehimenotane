@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllArticleSlugs, getArticleBySlug } from "@/lib/microcms";
+import ArticleBlocks from "@/components/articles/ArticleBlocks";
 
 export const revalidate = 60;
 export const dynamicParams = true;
@@ -24,11 +25,11 @@ export async function generateMetadata({ params }: Props) {
   try {
     const article = await getArticleBySlug(slug);
     return {
-      title: `${article.title} | エヒメノタネ`,
-      description: article.description,
+      title: article.seoTitle || article.title,
+      description: article.seoDescliotion,
       openGraph: {
-        title: article.title,
-        description: article.description,
+        title: article.seoTitle || article.title,
+        description: article.seoDescliotion,
         images: article.eyecatch ? [{ url: article.eyecatch.url }] : [],
       },
     };
@@ -47,47 +48,70 @@ export default async function ArticlePage({ params }: Props) {
     notFound();
   }
 
-  const publishedDate = new Date(article.publishedAt).toLocaleDateString(
-    "ja-JP",
-    { year: "numeric", month: "long", day: "numeric" }
-  );
+  const publishedDate = new Date(article.publishedAt).toLocaleDateString("ja-JP", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-12">
       {/* パンくず */}
-      <nav className="text-sm text-stone-400 mb-6 flex items-center gap-2">
-        <Link href="/" className="hover:text-emerald-700 transition-colors">
-          トップ
-        </Link>
+      <nav className="text-xs text-stone-400 mb-6 flex flex-wrap items-center gap-1.5">
+        <Link href="/" className="hover:text-[#8ab92d] transition-colors">トップ</Link>
         <span>/</span>
+        <Link href="/articles" className="hover:text-[#8ab92d] transition-colors">記事一覧</Link>
         {article.category && (
           <>
+            <span>/</span>
             <Link
               href={`/category/${article.category.slug}`}
-              className="hover:text-emerald-700 transition-colors"
+              className="hover:text-[#8ab92d] transition-colors"
             >
               {article.category.name}
             </Link>
-            <span>/</span>
           </>
         )}
+        <span>/</span>
         <span className="text-stone-600 line-clamp-1">{article.title}</span>
       </nav>
 
-      {/* カテゴリ・タイトル */}
+      {/* カテゴリ */}
       {article.category && (
         <Link
           href={`/category/${article.category.slug}`}
-          className="inline-block bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full mb-4 hover:bg-emerald-200 transition-colors"
+          className="inline-block bg-[#8ab92d] text-white text-xs px-3 py-1 rounded-full mb-4 hover:bg-[#7aa625] transition-colors"
         >
           {article.category.name}
         </Link>
       )}
+
+      {/* タイトル */}
       <h1 className="text-2xl md:text-3xl font-bold text-stone-800 leading-snug">
         {article.title}
       </h1>
 
-      <time className="text-sm text-stone-400 mt-3 block">{publishedDate}</time>
+      {/* メタ情報 */}
+      <div className="flex flex-wrap items-center gap-3 mt-3">
+        <time className="text-xs text-stone-400">{publishedDate}</time>
+        {article.area && (
+          <span className="text-xs text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
+            📍 {article.area.name}
+          </span>
+        )}
+        {article.tags && article.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {article.tags.map((tag) => (
+              <span
+                key={tag.id}
+                className="text-xs text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full"
+              >
+                #{tag.name}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* アイキャッチ */}
       {article.eyecatch && (
@@ -98,44 +122,84 @@ export default async function ArticlePage({ params }: Props) {
             fill
             className="object-cover"
             priority
+            sizes="(max-width: 768px) 100vw, 768px"
           />
         </div>
       )}
 
-      {/* 本文 */}
-      <article
-        className="prose prose-stone prose-sm md:prose-base max-w-none mt-10
-          prose-headings:font-bold prose-headings:text-stone-800
-          prose-a:text-emerald-700 prose-a:no-underline hover:prose-a:underline
-          prose-img:rounded-xl"
-        dangerouslySetInnerHTML={{ __html: article.content }}
-      />
+      {/* 記事ブロック */}
+      <ArticleBlocks blocks={article.contentBlocks ?? []} />
 
-      {/* 著者 */}
-      {article.author && (
-        <div className="mt-12 p-6 bg-stone-50 rounded-2xl flex gap-4 items-start">
-          {article.author.avatar && (
-            <Image
-              src={article.author.avatar.url}
-              alt={article.author.name}
-              width={56}
-              height={56}
-              className="rounded-full object-cover"
-            />
-          )}
-          <div>
-            <p className="font-bold text-stone-700">{article.author.name}</p>
-            <p className="text-sm text-stone-500 mt-1">{article.author.profile}</p>
+      {/* クライアント情報 */}
+      {article.client && (
+        <aside className="mt-14 p-6 bg-stone-50 rounded-2xl border border-stone-100">
+          <h2 className="text-sm font-bold text-stone-500 mb-4 tracking-wider">店舗情報</h2>
+          <div className="flex gap-4 items-start">
+            {article.client.mainImage && (
+              <div className="relative w-20 h-20 rounded-xl overflow-hidden flex-shrink-0">
+                <Image
+                  src={article.client.mainImage.url}
+                  alt={article.client.name}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="flex-1 space-y-1.5">
+              <p className="font-bold text-stone-800">{article.client.name}</p>
+              {article.client.industry && (
+                <p className="text-xs text-stone-500">{article.client.industry}</p>
+              )}
+              {article.client.address && (
+                <p className="text-xs text-stone-500">📍 {article.client.address}</p>
+              )}
+              {article.client.operatingDays && (
+                <p className="text-xs text-stone-500">🕐 {article.client.operatingDays}</p>
+              )}
+              <div className="flex gap-3 mt-2">
+                {article.client.googleMapUrl && (
+                  <a
+                    href={article.client.googleMapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#8ab92d] hover:underline"
+                  >
+                    Google Map
+                  </a>
+                )}
+                {article.client.websiteUrl && (
+                  <a
+                    href={article.client.websiteUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#8ab92d] hover:underline"
+                  >
+                    公式サイト
+                  </a>
+                )}
+                {article.client.instagramUrl && (
+                  <a
+                    href={article.client.instagramUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs text-[#8ab92d] hover:underline"
+                  >
+                    Instagram
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        </aside>
       )}
 
+      {/* 戻るボタン */}
       <div className="mt-12 text-center">
         <Link
-          href="/"
-          className="inline-block text-sm text-emerald-700 border border-emerald-200 px-6 py-2 rounded-full hover:bg-emerald-50 transition-colors"
+          href="/articles"
+          className="inline-block text-sm text-[#8ab92d] border border-[#8ab92d] px-6 py-2 rounded-full hover:bg-[#8ab92d] hover:text-white transition-colors"
         >
-          ← トップに戻る
+          ← 記事一覧に戻る
         </Link>
       </div>
     </main>

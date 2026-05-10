@@ -45,10 +45,8 @@ export default function ArticleCard({ article }: Props) {
         <h2 className="font-bold text-stone-800 text-base leading-snug line-clamp-2 group-hover:text-emerald-700 transition-colors">
           {article.title}
         </h2>
-        {article.description && (
-          <p className="text-stone-500 text-sm mt-2 line-clamp-2">
-            {article.description}
-          </p>
+        {article.category && (
+          <p className="text-xs text-stone-400 mt-1">{article.category.name}</p>
         )}
         <time className="text-xs text-stone-400 mt-3 block">
           {formatDate(article.publishedAt)}

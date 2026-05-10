@@ -3,4 +3,34 @@
 
 @theme inline {
   --font-sans: var(--font-noto-sans-jp);
+  --animate-ticker: ticker 30s linear infinite;
+
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-33.333%); }
+  }
+}
+
+.btn-terracotta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #e06b52;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.75rem 2.5rem;
+  border-radius: 9999px;
+  box-shadow: 0 5px 0 #b84d36;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-terracotta:hover {
+  transform: translateY(2px);
+  box-shadow: 0 3px 0 #b84d36;
+}
+
+.btn-terracotta:active {
+  transform: translateY(5px);
+  box-shadow: 0 0px 0 #b84d36;
 }

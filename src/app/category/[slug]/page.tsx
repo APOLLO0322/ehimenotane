@@ -17,7 +17,9 @@ type Props = {
 export async function generateStaticParams() {
   try {
     const { contents } = await getCategories();
-    return contents.map((cat) => ({ slug: cat.slug }));
+    return contents
+      .filter((cat) => typeof cat.slug === "string" && cat.slug.length > 0)
+      .map((cat) => ({ slug: cat.slug }));
   } catch {
     return [];
   }
