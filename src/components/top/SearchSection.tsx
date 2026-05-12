@@ -10,9 +10,7 @@ const GENRES = [
 ];
 
 const AREAS = [
-  "松山市", "今治市", "宇和島市", "新居浜市", "西条市",
-  "四国中央市", "大洲市", "伊予市", "東温市", "久万高原町",
-  "内子町", "愛南町", "八幡浜市",
+  "松山市", "今治市",  "新居浜市", "西条市", "伊予市", "東温市",
 ];
 
 type Tab = "genre" | "area" | "name";
@@ -39,10 +37,10 @@ export default function SearchSection() {
   ];
 
   return (
-    <section className="bg-[#8ab92d] py-14 px-4">
+    <section className="bg-[#9dc926] py-14 px-4">
       <div className="max-w-4xl mx-auto">
         {/* タイトル */}
-        <h2 className="text-5xl font-black text-white tracking-wider mb-8">
+        <h2 className="text-5xl text-white tracking-[0.25em] mb-8 font-[family-name:var(--font-train-one)]">
           SEARCH
         </h2>
 
@@ -54,7 +52,7 @@ export default function SearchSection() {
               onClick={() => setActiveTab(tab.id)}
               className={`px-5 py-2.5 text-sm font-bold rounded-t-lg transition-colors ${
                 activeTab === tab.id
-                  ? "bg-white text-[#8ab92d]"
+                  ? "bg-white text-[#9dc926]"
                   : "bg-white/30 text-white hover:bg-white/50"
               }`}
             >
@@ -73,8 +71,8 @@ export default function SearchSection() {
                   onClick={() => setSelectedGenre(genre === selectedGenre ? "" : genre)}
                   className={`px-4 py-2 rounded-full text-sm border-2 transition-colors ${
                     selectedGenre === genre
-                      ? "bg-[#8ab92d] border-[#8ab92d] text-white"
-                      : "border-stone-200 text-stone-600 hover:border-[#8ab92d] hover:text-[#8ab92d]"
+                      ? "bg-[#9dc926] border-[#9dc926] text-white"
+                      : "border-stone-200 text-stone-600 hover:border-[#9dc926] hover:text-[#9dc926]"
                   }`}
                 >
                   {genre}
@@ -91,8 +89,8 @@ export default function SearchSection() {
                   onClick={() => setSelectedArea(area === selectedArea ? "" : area)}
                   className={`px-4 py-2 rounded-full text-sm border-2 transition-colors ${
                     selectedArea === area
-                      ? "bg-[#8ab92d] border-[#8ab92d] text-white"
-                      : "border-stone-200 text-stone-600 hover:border-[#8ab92d] hover:text-[#8ab92d]"
+                      ? "bg-[#9dc926] border-[#9dc926] text-white"
+                      : "border-stone-200 text-stone-600 hover:border-[#9dc926] hover:text-[#9dc926]"
                   }`}
                 >
                   {area}
@@ -109,7 +107,7 @@ export default function SearchSection() {
                 onChange={(e) => setSearchName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 placeholder="店名・キーワードを入力"
-                className="flex-1 border-2 border-stone-200 rounded-full px-5 py-2.5 text-sm outline-none focus:border-[#8ab92d]"
+                className="flex-1 border-2 border-stone-200 rounded-full px-5 py-2.5 text-sm outline-none focus:border-[#9dc926]"
               />
             </div>
           )}
@@ -117,7 +115,7 @@ export default function SearchSection() {
           <div className="mt-5 flex justify-center">
             <button
               onClick={handleSearch}
-              className="bg-[#8ab92d] text-white text-sm font-bold px-12 py-3 rounded-full hover:bg-[#7aa625] transition-colors"
+              className="bg-[#9dc926] text-white text-sm font-bold px-12 py-3 rounded-full hover:bg-[#88bb1e] transition-colors"
             >
               この条件で探す
             </button>

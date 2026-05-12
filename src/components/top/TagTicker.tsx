@@ -13,7 +13,7 @@ export default function TagTicker({ tags }: Props) {
   return (
     <div
       className="w-full overflow-hidden py-2.5"
-      style={{ backgroundColor: "#8ab92d" }}
+      style={{ backgroundColor: "#9dc926" }}
     >
       <div className="flex animate-ticker whitespace-nowrap">
         {repeated.map((tag, i) => (

@@ -19,7 +19,7 @@ export default async function ArticlesPage({ searchParams }: Props) {
   const offset = (currentPage - 1) * 12;
 
   const [articlesRes, categoriesRes] = await Promise.all([
-    getArticles({ offset, categoryId: category }).catch(() => ({
+    getArticles({ offset }).catch(() => ({
       contents: [],
       totalCount: 0,
       offset: 0,
@@ -44,8 +44,8 @@ export default async function ArticlesPage({ searchParams }: Props) {
             href="/articles"
             className={`px-4 py-1.5 rounded-full text-sm border transition-colors ${
               !category
-                ? "bg-[#8ab92d] text-white border-[#8ab92d]"
-                : "border-stone-200 text-stone-600 hover:border-[#8ab92d] hover:text-[#8ab92d]"
+                ? "bg-[#9dc926] text-white border-[#9dc926]"
+                : "border-stone-200 text-stone-600 hover:border-[#9dc926] hover:text-[#9dc926]"
             }`}
           >
             すべて
@@ -56,8 +56,8 @@ export default async function ArticlesPage({ searchParams }: Props) {
               href={`/articles?category=${cat.id}`}
               className={`px-4 py-1.5 rounded-full text-sm border transition-colors ${
                 category === cat.id
-                  ? "bg-[#8ab92d] text-white border-[#8ab92d]"
-                  : "border-stone-200 text-stone-600 hover:border-[#8ab92d] hover:text-[#8ab92d]"
+                  ? "bg-[#9dc926] text-white border-[#9dc926]"
+                  : "border-stone-200 text-stone-600 hover:border-[#9dc926] hover:text-[#9dc926]"
               }`}
             >
               {cat.name}
@@ -86,8 +86,8 @@ export default async function ArticlesPage({ searchParams }: Props) {
               href={`/articles?${category ? `category=${category}&` : ""}page=${p}`}
               className={`w-9 h-9 flex items-center justify-center rounded-full text-sm transition-colors ${
                 p === currentPage
-                  ? "bg-[#8ab92d] text-white"
-                  : "border border-stone-200 text-stone-600 hover:border-[#8ab92d] hover:text-[#8ab92d]"
+                  ? "bg-[#9dc926] text-white"
+                  : "border border-stone-200 text-stone-600 hover:border-[#9dc926] hover:text-[#9dc926]"
               }`}
             >
               {p}

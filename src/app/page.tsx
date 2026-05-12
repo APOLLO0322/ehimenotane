@@ -1,18 +1,23 @@
-import HeroSection from "@/components/top/HeroSection";
 import TagTickerServer from "@/components/top/TagTickerServer";
-import PickupSection from "@/components/top/PickupSection";
+import HeroPickupBlock from "@/components/top/HeroPickupBlock";
 import OshiseBanner from "@/components/top/OshiseBanner";
 import SearchSection from "@/components/top/SearchSection";
 import ConceptSection from "@/components/top/ConceptSection";
+import { getRecentArticles } from "@/lib/microcms";
 
 export const revalidate = 60;
 
-export default function Home() {
+export default async function Home() {
+  const recentArticles = await getRecentArticles(30).catch(() => []);
+
+  const heroArticles = recentArticles.filter((a) => a.hero === true);
+  const pickupPool = recentArticles.filter((a) => !a.hero);
+
   return (
     <main>
-      <HeroSection />
-      <TagTickerServer />
-      <PickupSection />
+      <HeroPickupBlock heroArticles={heroArticles} pickupPool={pickupPool}>
+        <TagTickerServer />
+      </HeroPickupBlock>
       <OshiseBanner />
       <SearchSection />
       <ConceptSection />

@@ -11,7 +11,7 @@ export default function Footer() {
         {/* TOPへもどる */}
         <button
           onClick={scrollToTop}
-          className="absolute right-6 top-8 flex flex-col items-center gap-1 text-[#8ab92d] hover:opacity-70 transition-opacity"
+          className="absolute right-6 top-8 flex flex-col items-center gap-1 text-[#9dc926] hover:opacity-70 transition-opacity"
           aria-label="トップへ戻る"
         >
           <span className="text-2xl leading-none">↑</span>
@@ -24,35 +24,35 @@ export default function Footer() {
 
         {/* ナビ1行目 */}
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-600 mb-3 pr-20">
-          <Link href="/" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/" className="hover:text-[#9dc926] transition-colors">
             ホーム
           </Link>
-          <Link href="/articles" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/articles" className="hover:text-[#9dc926] transition-colors">
             記事一覧
           </Link>
-          <Link href="/feature" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/feature" className="hover:text-[#9dc926] transition-colors">
             特集記事
           </Link>
-          <Link href="/about" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/about" className="hover:text-[#9dc926] transition-colors">
             エヒメノタネとは
           </Link>
-          <Link href="/contact" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/contact" className="hover:text-[#9dc926] transition-colors">
             掲載をご希望の方
           </Link>
         </nav>
 
         {/* ナビ2行目 */}
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-600 mb-8 pr-20">
-          <Link href="/privacy" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/privacy" className="hover:text-[#9dc926] transition-colors">
             プライバシーポリシー
           </Link>
-          <Link href="/terms" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/terms" className="hover:text-[#9dc926] transition-colors">
             利用規約
           </Link>
-          <Link href="/advertising" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/advertising" className="hover:text-[#9dc926] transition-colors">
             広告掲載
           </Link>
-          <Link href="/inquiry" className="hover:text-[#8ab92d] transition-colors">
+          <Link href="/inquiry" className="hover:text-[#9dc926] transition-colors">
             お問い合わせ
           </Link>
         </nav>

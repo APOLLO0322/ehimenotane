@@ -15,9 +15,12 @@ function formatDate(dateStr: string) {
 }
 
 export default function ArticleCard({ article }: Props) {
+  const categoryName = article.client?.categories?.name;
+  const areaName = article.client?.areas?.name;
+
   return (
     <Link
-      href={`/articles/${article.slug}`}
+      href={article.slug ? `/articles/${article.slug}` : "#"}
       className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-100"
     >
       {/* アイキャッチ */}
@@ -35,25 +38,23 @@ export default function ArticleCard({ article }: Props) {
             🌱
           </div>
         )}
-        {article.category && (
-          <span className="absolute top-3 left-3 bg-[#8ab92d] text-white text-xs px-2.5 py-1 rounded-full">
-            {article.category.name}
+        {categoryName && (
+          <span className="absolute top-3 left-3 bg-[#9dc926] text-white text-xs px-2.5 py-1 rounded-full">
+            {categoryName}
           </span>
         )}
       </div>
 
       {/* テキスト */}
       <div className="p-4">
-        <h2 className="font-bold text-stone-800 text-sm leading-snug line-clamp-2 group-hover:text-[#8ab92d] transition-colors">
+        <h2 className="font-bold text-stone-800 text-sm leading-snug line-clamp-2 group-hover:text-[#9dc926] transition-colors">
           {article.title}
         </h2>
 
-        {/* エリア */}
-        {article.area && (
-          <p className="text-xs text-stone-400 mt-1">{article.area.name}</p>
+        {areaName && (
+          <p className="text-xs text-stone-400 mt-1">📍 {areaName}</p>
         )}
 
-        {/* タグ */}
         {article.tags && article.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
             {article.tags.slice(0, 3).map((tag) => (
@@ -68,7 +69,7 @@ export default function ArticleCard({ article }: Props) {
         )}
 
         <time className="text-xs text-stone-400 mt-3 block">
-          {formatDate(article.publishedAt)}
+          {formatDate(article.publishedAt ?? article.createdAt ?? "")}
         </time>
       </div>
     </Link>

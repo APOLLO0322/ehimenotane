@@ -4,7 +4,7 @@ export type {
   MicroCMSBase,
   MicroCMSListResponse,
   Article,
-  ArticleBlock,
+  ArticleSection,
   Category,
   Tag,
   Area,

@@ -15,9 +15,11 @@ function formatDate(dateStr: string) {
 }
 
 export default function ArticleCard({ article }: Props) {
+  const categoryName = article.client?.categories?.name;
+
   return (
     <Link
-      href={`/articles/${article.slug}`}
+      href={article.slug ? `/articles/${article.slug}` : "#"}
       className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-100"
     >
       <div className="relative aspect-[16/9] overflow-hidden">
@@ -34,9 +36,9 @@ export default function ArticleCard({ article }: Props) {
             <span className="text-emerald-300 text-4xl">🌱</span>
           </div>
         )}
-        {article.category && (
+        {categoryName && (
           <span className="absolute top-3 left-3 bg-emerald-600 text-white text-xs px-2 py-1 rounded-full">
-            {article.category.name}
+            {categoryName}
           </span>
         )}
       </div>
@@ -45,11 +47,11 @@ export default function ArticleCard({ article }: Props) {
         <h2 className="font-bold text-stone-800 text-base leading-snug line-clamp-2 group-hover:text-emerald-700 transition-colors">
           {article.title}
         </h2>
-        {article.category && (
-          <p className="text-xs text-stone-400 mt-1">{article.category.name}</p>
+        {categoryName && (
+          <p className="text-xs text-stone-400 mt-1">{categoryName}</p>
         )}
         <time className="text-xs text-stone-400 mt-3 block">
-          {formatDate(article.publishedAt)}
+          {formatDate(article.publishedAt ?? article.createdAt ?? "")}
         </time>
       </div>
     </Link>

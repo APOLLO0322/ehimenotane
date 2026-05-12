@@ -47,10 +47,7 @@ export default async function CategoryPage({ params }: Props) {
     notFound();
   }
 
-  const { contents: articles, totalCount } = await getArticles({
-    categoryId: category.id,
-    limit: 12,
-  });
+  const { contents: articles, totalCount } = await getArticles({ limit: 12 });
 
   return (
     <main className="max-w-5xl mx-auto px-4 py-12">
