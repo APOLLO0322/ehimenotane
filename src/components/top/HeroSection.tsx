@@ -33,7 +33,7 @@ export default function HeroSection({ article }: Props) {
             <p className="text-white/90 text-xs tracking-[0.3em] mb-3 font-medium uppercase">
               Ehime no Tane
             </p>
-            <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight drop-shadow-sm font-[family-name:var(--font-noto-serif-jp)]">
+            <h1 className="text-white text-4xl md:text-5xl font-bold leading-tight drop-shadow-sm">
               幸せな小さな
               <br />
               タネをさがして
@@ -57,6 +57,8 @@ export default function HeroSection({ article }: Props) {
 
   const heading1 = article.articleSections?.[0]?.heading1 ?? article.title;
   const categoryName = article.client?.categories?.name;
+  const areaName = article.client?.areas?.name;
+  const clientName = article.client?.name;
 
   return (
     <section className="relative w-full h-[480px] md:h-[560px] overflow-hidden">
@@ -86,13 +88,27 @@ export default function HeroSection({ article }: Props) {
       <div className="absolute inset-0 flex flex-col justify-end md:justify-center px-8 md:px-16 pb-12 md:pb-0">
         <div className="max-w-lg">
           {categoryName && (
-            <span className="inline-block bg-[#9dc926] text-white text-xs px-3 py-1 rounded-full mb-4">
+            <span className="inline-block bg-[#9dc926] text-white text-xs px-3 py-1 rounded-full mb-3">
               {categoryName}
             </span>
           )}
-          <h2 className="text-white text-2xl md:text-4xl font-bold leading-snug drop-shadow-md line-clamp-2 font-[family-name:var(--font-noto-serif-jp)]">
+          <h2 className="text-white text-2xl md:text-4xl font-bold leading-snug drop-shadow-md line-clamp-2">
             {heading1}
           </h2>
+          {(clientName || areaName) && (
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              {clientName && (
+                <span className="text-white/90 text-xs font-medium bg-white/20 px-2.5 py-1 rounded-md backdrop-blur-sm">
+                  {clientName}
+                </span>
+              )}
+              {areaName && (
+                <span className="text-white/80 text-xs bg-white/15 px-2.5 py-1 rounded-md backdrop-blur-sm">
+                  📍 {areaName}
+                </span>
+              )}
+            </div>
+          )}
           <Link
             href={article.slug ? `/articles/${article.slug}` : "#"}
             className="mt-7 inline-flex items-center gap-2 bg-white text-[#9dc926] text-sm font-bold px-7 py-3 rounded-full w-fit hover:bg-green-50 transition-colors shadow-md"

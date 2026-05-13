@@ -39,7 +39,7 @@ export default function HeaderClient({ categories }: Props) {
           {/* 右側: 検索 + ハンバーガー */}
           <div className="flex items-center gap-4">
             <Link
-              href="/search"
+              href="/articles"
               className="flex items-center gap-1.5 text-stone-600 hover:text-[#9dc926] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,44 +98,25 @@ export default function HeaderClient({ categories }: Props) {
         <nav className="px-6 py-6 flex flex-col gap-1">
           <Link
             href="/"
-            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-50 transition-colors"
+            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-100 transition-colors"
           >
-            トップ
+            TOP
           </Link>
           <Link
-            href="/articles"
-            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-50 transition-colors"
+            href="/articles/new"
+            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-100 transition-colors"
           >
-            記事一覧
-          </Link>
-
-          {categories.length > 0 && (
-            <>
-              <p className="pt-4 pb-1 text-xs text-stone-400 tracking-widest font-bold">CATEGORY</p>
-              {categories.map((cat) => (
-                <Link
-                  key={cat.id}
-                  href={`/category/${cat.slug}`}
-                  className="py-3 text-stone-700 hover:text-[#9dc926] border-b border-stone-50 transition-colors pl-2"
-                >
-                  {cat.name}
-                </Link>
-              ))}
-            </>
-          )}
-
-          <Link
-            href="/about"
-            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-50 transition-colors mt-2"
-          >
-            このサイトについて
+            新着記事
           </Link>
           <Link
-            href="/contact"
-            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium transition-colors"
+            href="/articles/feature"
+            className="py-3 text-stone-700 hover:text-[#9dc926] font-medium border-b border-stone-100 transition-colors"
           >
-            お問い合わせ
+            特集記事
           </Link>
+          <span className="py-3 text-stone-400 font-medium cursor-default">
+            エヒメノタネとは
+          </span>
         </nav>
       </div>
     </header>

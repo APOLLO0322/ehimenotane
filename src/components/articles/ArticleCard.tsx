@@ -51,8 +51,17 @@ export default function ArticleCard({ article }: Props) {
           {article.title}
         </h2>
 
-        {areaName && (
-          <p className="text-xs text-stone-400 mt-1">📍 {areaName}</p>
+        {(article.client?.name || areaName) && (
+          <div className="flex items-center gap-2 mt-2">
+            {article.client?.name && (
+              <span className="text-xs font-medium text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md">
+                {article.client.name}
+              </span>
+            )}
+            {areaName && (
+              <span className="text-xs text-stone-400">📍 {areaName}</span>
+            )}
+          </div>
         )}
 
         {article.tags && article.tags.length > 0 && (

@@ -1,25 +1,30 @@
-import { getArticles } from "@/lib/microcms";
+import { getCategories } from "@/lib/microcms";
 import TagTicker from "./TagTicker";
 
-const DUMMY_TAGS = [
-  "松山グルメ", "道後温泉", "みかんスイーツ", "カフェ巡り", "隠れ家",
-  "今治タオル", "宇和島鯛めし", "愛媛の朝ごはん", "パン屋さん", "地元酒",
-  "サイクリング", "里山暮らし", "せとうち絶景", "愛媛土産", "テイクアウト",
+const DUMMY_CATEGORIES = [
+  { name: "グルメ・カフェ", slug: "gourmet" },
+  { name: "スイーツ", slug: "sweets" },
+  { name: "パン", slug: "bread" },
+  { name: "自然・アウトドア", slug: "nature" },
+  { name: "観光スポット", slug: "sightseeing" },
+  { name: "ショッピング", slug: "shopping" },
+  { name: "体験・アクティビティ", slug: "activity" },
+  { name: "居酒屋・バー", slug: "izakaya" },
 ];
 
 export default async function TagTickerServer() {
-  let tags: string[] = [];
+  let categories: { name: string; slug: string }[] = [];
 
   try {
-    const { contents } = await getArticles({ limit: 100 });
-    // tags は Tag[] なので name を取り出して重複除去
-    const allTagNames = contents.flatMap((a) => (a.tags ?? []).map((t) => t.name));
-    tags = [...new Set(allTagNames)];
+    const { contents } = await getCategories();
+    categories = contents
+      .filter((c) => c.name && c.slug)
+      .map((c) => ({ name: c.name, slug: c.slug }));
   } catch {
-    // microCMS未設定時はダミータグ
+    // microCMS未設定時はダミー
   }
 
-  const displayTags = tags.length > 0 ? tags : DUMMY_TAGS;
+  const display = categories.length > 0 ? categories : DUMMY_CATEGORIES;
 
-  return <TagTicker tags={displayTags} />;
+  return <TagTicker categories={display} />;
 }

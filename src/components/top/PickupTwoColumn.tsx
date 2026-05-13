@@ -26,13 +26,14 @@ function formatDate(dateStr: string) {
 }
 
 export default function PickupTwoColumn({ pool }: Props) {
-  const [articles, setArticles] = useState<Article[]>(() => pick2(pool));
+  const [articles, setArticles] = useState<Article[]>([]);
 
   useEffect(() => {
+    setArticles(pick2(pool));
     if (pool.length <= 2) return;
     const timer = setInterval(() => {
       setArticles(pick2(pool));
-    }, 60_000);
+    }, 20_000);
     return () => clearInterval(timer);
   }, [pool]);
 

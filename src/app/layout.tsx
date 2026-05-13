@@ -1,15 +1,8 @@
 import type { Metadata } from "next";
-import { Noto_Serif_JP, Zen_Kaku_Gothic_New, Ms_Madi, Train_One } from "next/font/google";
+import { Zen_Kaku_Gothic_New, Ms_Madi, Train_One } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-
-const notoSerifJP = Noto_Serif_JP({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-noto-serif-jp",
-  display: "swap",
-});
 
 const trainOne = Train_One({
   subsets: ["latin"],
@@ -55,7 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="ja"
-      className={`${notoSerifJP.variable} ${zenKakuGothicNew.variable} ${msMadi.variable} ${trainOne.variable} h-full antialiased`}
+      className={`${zenKakuGothicNew.variable} ${msMadi.variable} ${trainOne.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-[family-name:var(--font-zen-kaku)] bg-white text-stone-800">
         <Header />

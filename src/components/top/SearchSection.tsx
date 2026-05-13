@@ -3,19 +3,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const GENRES = [
-  "グルメ・カフェ", "スイーツ", "パン", "居酒屋・バー",
-  "ランチ", "テイクアウト", "自然・アウトドア", "観光スポット",
-  "ショッピング", "体験・アクティビティ",
-];
-
-const AREAS = [
-  "松山市", "今治市",  "新居浜市", "西条市", "伊予市", "東温市",
-];
-
 type Tab = "genre" | "area" | "name";
 
-export default function SearchSection() {
+type Props = {
+  genres: string[];
+  areas: string[];
+};
+
+export default function SearchSection({ genres, areas }: Props) {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<Tab>("genre");
   const [selectedGenre, setSelectedGenre] = useState("");
@@ -65,7 +60,7 @@ export default function SearchSection() {
         <div className="bg-white rounded-b-2xl rounded-tr-2xl p-6">
           {activeTab === "genre" && (
             <div className="flex flex-wrap gap-2">
-              {GENRES.map((genre) => (
+              {genres.map((genre) => (
                 <button
                   key={genre}
                   onClick={() => setSelectedGenre(genre === selectedGenre ? "" : genre)}
@@ -83,7 +78,7 @@ export default function SearchSection() {
 
           {activeTab === "area" && (
             <div className="flex flex-wrap gap-2">
-              {AREAS.map((area) => (
+              {areas.map((area) => (
                 <button
                   key={area}
                   onClick={() => setSelectedArea(area === selectedArea ? "" : area)}

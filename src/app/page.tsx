@@ -1,7 +1,7 @@
 import TagTickerServer from "@/components/top/TagTickerServer";
 import HeroPickupBlock from "@/components/top/HeroPickupBlock";
 import OshiseBanner from "@/components/top/OshiseBanner";
-import SearchSection from "@/components/top/SearchSection";
+import SearchSectionServer from "@/components/top/SearchSectionServer";
 import ConceptSection from "@/components/top/ConceptSection";
 import { getRecentArticles } from "@/lib/microcms";
 
@@ -19,7 +19,7 @@ export default async function Home() {
         <TagTickerServer />
       </HeroPickupBlock>
       <OshiseBanner />
-      <SearchSection />
+      <SearchSectionServer />
       <ConceptSection />
     </main>
   );

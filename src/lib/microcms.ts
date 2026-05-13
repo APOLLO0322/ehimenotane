@@ -55,6 +55,15 @@ export const getRecentArticles = async (limitDays = 30): Promise<Article[]> => {
   return res.contents;
 };
 
+// feature = true の記事を全件取得
+export const getFeatureArticles = async (): Promise<Article[]> => {
+  const res = await client.getList<Article>({
+    endpoint: "articles",
+    queries: { filters: "feature[equals]true", limit: 100, depth: 2 },
+  });
+  return res.contents;
+};
+
 // slug で記事取得
 export const getArticleBySlug = async (slug: string): Promise<Article> => {
   const res = await client.getList<Article>({

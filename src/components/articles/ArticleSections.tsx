@@ -51,7 +51,7 @@ function TemplateBasic({ section }: { section: ArticleSection }) {
             </p>
           )}
           {section.image2 && section.image2.length > 0 && (
-            <div className="grid grid-cols-2 gap-3">
+            <div className={section.image2.length === 1 ? "" : "grid grid-cols-2 gap-3"}>
               {section.image2.map((img, i) => (
                 <div key={img.url} className="rounded-xl overflow-hidden">
                   <Image
@@ -82,7 +82,7 @@ function TemplateBasic({ section }: { section: ArticleSection }) {
             </p>
           )}
           {section.image3 && section.image3.length > 0 && (
-            <div className="grid grid-cols-2 gap-3">
+            <div className={section.image3.length === 1 ? "" : "grid grid-cols-2 gap-3"}>
               {section.image3.map((img, i) => (
                 <div key={img.url} className="rounded-xl overflow-hidden">
                   <Image

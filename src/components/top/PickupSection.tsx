@@ -6,6 +6,7 @@ import PickupTwoColumn from "./PickupTwoColumn";
 type Props = {
   heroArticle: Article | null;
   pickupPool: Article[];
+  slideKey: number;
 };
 
 function truncate(text: string, max = 100): string {
@@ -20,7 +21,7 @@ function formatDate(dateStr: string) {
   });
 }
 
-export default function PickupSection({ heroArticle, pickupPool }: Props) {
+export default function PickupSection({ heroArticle, pickupPool, slideKey }: Props) {
   const section = heroArticle?.articleSections?.[0];
   const wideImage = section?.image2?.[0] ?? heroArticle?.eyecatch ?? null;
   const wideHeading = section?.heading2 ?? heroArticle?.title ?? "";
@@ -45,8 +46,9 @@ export default function PickupSection({ heroArticle, pickupPool }: Props) {
       {/* ワイドカード（hero記事） */}
       {heroArticle ? (
         <Link
+          key={slideKey}
           href={heroArticle.slug ? `/articles/${heroArticle.slug}` : "#"}
-          className="group relative flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-100 mb-6"
+          className="group relative flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-stone-100 mb-6 animate-[fadein_0.6s_ease_both]"
         >
           <div className="relative w-full md:w-[420px] aspect-[16/9] md:aspect-auto md:h-56 flex-shrink-0">
             {wideImage ? (
@@ -68,7 +70,7 @@ export default function PickupSection({ heroArticle, pickupPool }: Props) {
                 {categoryName}
               </span>
             )}
-            <h3 className="text-lg font-bold text-stone-800 leading-snug group-hover:text-[#9dc926] transition-colors font-[family-name:var(--font-noto-serif-jp)]">
+            <h3 className="text-lg font-bold text-stone-800 leading-snug group-hover:text-[#9dc926] transition-colors">
               {wideHeading}
             </h3>
             {wideText && (

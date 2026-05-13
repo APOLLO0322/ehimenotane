@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllArticleSlugs, getArticleBySlug } from "@/lib/microcms";
@@ -83,6 +82,11 @@ export default async function ArticlePage({ params }: Props) {
       {/* メタ情報 */}
       <div className="flex flex-wrap items-center gap-3 mt-3">
         <time className="text-xs text-stone-400">{publishedDate}</time>
+        {article.client?.name && (
+          <span className="text-xs font-medium text-stone-700 bg-stone-100 px-2 py-0.5 rounded-md">
+            {article.client.name}
+          </span>
+        )}
         {areaName && (
           <span className="text-xs text-stone-500 bg-stone-100 px-2 py-0.5 rounded-full">
             📍 {areaName}
@@ -101,20 +105,6 @@ export default async function ArticlePage({ params }: Props) {
           </div>
         )}
       </div>
-
-      {/* アイキャッチ */}
-      {article.eyecatch && (
-        <div className="relative aspect-[16/9] mt-8 rounded-2xl overflow-hidden">
-          <Image
-            src={article.eyecatch.url}
-            alt={article.title}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 768px) 100vw, 768px"
-          />
-        </div>
-      )}
 
       {/* 記事セクション */}
       <ArticleSections sections={article.articleSections ?? []} />

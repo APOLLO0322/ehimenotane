@@ -1,14 +1,20 @@
 "use client";
 
-type Props = {
-  tags: string[];
+import Link from "next/link";
+
+type Category = {
+  name: string;
+  slug: string;
 };
 
-export default function TagTicker({ tags }: Props) {
-  if (tags.length === 0) return null;
+type Props = {
+  categories: Category[];
+};
 
-  // 途切れなく見せるためにタグを3セット繰り返す
-  const repeated = [...tags, ...tags, ...tags];
+export default function TagTicker({ categories }: Props) {
+  if (categories.length === 0) return null;
+
+  const repeated = [...categories, ...categories, ...categories];
 
   return (
     <div
@@ -16,14 +22,15 @@ export default function TagTicker({ tags }: Props) {
       style={{ backgroundColor: "#9dc926" }}
     >
       <div className="flex animate-ticker whitespace-nowrap">
-        {repeated.map((tag, i) => (
-          <span
+        {repeated.map((cat, i) => (
+          <Link
             key={i}
-            className="inline-flex items-center gap-1.5 mx-5 text-white/90 text-xs font-medium tracking-wide flex-shrink-0"
+            href={`/search?genre=${encodeURIComponent(cat.name)}`}
+            className="inline-flex items-center gap-1.5 mx-5 text-white/90 text-xs font-medium tracking-wide flex-shrink-0 hover:text-white transition-colors"
           >
             <span className="text-white/50">#</span>
-            {tag}
-          </span>
+            {cat.name}
+          </Link>
         ))}
       </div>
     </div>

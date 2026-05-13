@@ -76,6 +76,7 @@ export type Article = {
   client?: Client;
   hero?: boolean;
   firstArticle?: boolean;
+  feature?: boolean;
   seoTitle?: string;
   seoDescription?: string;
 };
