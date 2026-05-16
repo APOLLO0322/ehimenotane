@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props) {
   try {
     const category = await getCategoryBySlug(slug);
     return {
-      title: `${category.name}の記事一覧 | エヒメノタネ`,
+      title: `${category.name}の記事一覧 | ヒメタネ`,
     };
   } catch {
     return { title: "カテゴリが見つかりません" };

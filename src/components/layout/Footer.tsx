@@ -34,7 +34,7 @@ export default function Footer() {
             特集記事
           </Link>
           <Link href="/about" className="hover:text-[#9dc926] transition-colors">
-            エヒメノタネとは
+            ヒメタネとは
           </Link>
           <Link href="/contact" className="hover:text-[#9dc926] transition-colors">
             掲載をご希望の方
@@ -58,7 +58,7 @@ export default function Footer() {
         </nav>
 
         <p className="text-xs text-stone-400">
-          © {new Date().getFullYear()} エヒメノタネ All rights reserved.
+          © {new Date().getFullYear()} ヒメタネ All rights reserved.
         </p>
       </div>
     </footer>

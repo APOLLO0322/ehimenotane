@@ -4,8 +4,8 @@ import ArticleCard from "@/components/articles/ArticleCard";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "特集記事 | エヒメノタネ",
-  description: "エヒメノタネの特集記事一覧です。",
+  title: "特集記事 | ヒメタネ",
+  description: "ヒメタネの特集記事一覧です。",
 };
 
 export default async function FeatureArticlesPage() {

@@ -29,7 +29,7 @@ export default function HeaderClient({ categories }: Props) {
           {/* ロゴ */}
           <Link href="/" className="flex items-baseline gap-2">
             <span className="text-xl font-black text-[#9dc926] tracking-wide">
-              エヒメノタネ
+              ヒメタネ
             </span>
             <span className="text-[10px] text-stone-400 tracking-widest hidden sm:block">
               himetane.com
@@ -115,7 +115,7 @@ export default function HeaderClient({ categories }: Props) {
             特集記事
           </Link>
           <span className="py-3 text-stone-400 font-medium cursor-default">
-            エヒメノタネとは
+            ヒメタネとは
           </span>
         </nav>
       </div>

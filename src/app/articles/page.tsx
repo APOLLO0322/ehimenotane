@@ -5,7 +5,7 @@ import Link from "next/link";
 export const revalidate = 60;
 
 export const metadata = {
-  title: "記事一覧 | エヒメノタネ",
+  title: "記事一覧 | ヒメタネ",
   description: "愛媛の食・人・暮らし・自然に関する記事一覧です。",
 };
 

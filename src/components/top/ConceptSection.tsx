@@ -18,7 +18,7 @@ export default function ConceptSection() {
       <div className="relative z-10 max-w-2xl mx-auto px-6 py-20 text-center">
         {/* ロゴプレースホルダー（後で画像に差し替え） */}
         <p className="text-stone-400 text-sm tracking-[0.3em] mb-8">
-          エヒメノタネロゴ
+          ヒメタネロゴ
         </p>
 
         <h2 className="text-xl md:text-2xl font-bold text-stone-800 leading-relaxed mb-6">

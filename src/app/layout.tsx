@@ -27,14 +27,14 @@ const zenKakuGothicNew = Zen_Kaku_Gothic_New({
 
 export const metadata: Metadata = {
   title: {
-    default: "エヒメノタネ",
-    template: "%s | エヒメノタネ",
+    default: "ヒメタネ",
+    template: "%s | ヒメタネ",
   },
   description:
     "愛媛の食・人・暮らし・自然をひろい、あなたの心に小さな種を届けるオウンドメディア。",
   metadataBase: new URL("https://himetane.com"),
   openGraph: {
-    siteName: "エヒメノタネ",
+    siteName: "ヒメタネ",
     locale: "ja_JP",
     type: "website",
   },

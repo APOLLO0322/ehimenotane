@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props) {
       },
     };
   } catch {
-    return { title: "記事が見つかりません | エヒメノタネ" };
+    return { title: "記事が見つかりません | ヒメタネ" };
   }
 }
 
